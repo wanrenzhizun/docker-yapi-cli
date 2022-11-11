@@ -24,6 +24,8 @@ if [ -z $version ]; then
 fi
 # 一切正常的话输出取值结果
 
+echo "tag ===> v${version}"
+
 git clone \
   --branch "v${version}" \
   --single-branch \

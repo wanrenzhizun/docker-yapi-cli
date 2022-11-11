@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  yapi-web:
+    image: wanrenzhizun/yapi:latest
+    container_name: yapi-web
+    ports:
+      - 40001:3000
+    environment:
+      - ADMIN_ACCOUNT=admin@admin.com
+      - ADMIN_PASSWORD=admin123
+      - CLOSE_REGISTER=true
+      - DB_SERVERNAME=yapi-mongo
+      - DB_PORT=27017
+      - DB_NAME=yapi
+      - MAIL_ENABLE=false
+      - LDAP_ENABLE=false
+      - YAPI_PLUGINS=[]
+    depends_on:
+      - yapi-mongo
+    links:
+      - yapi-mongo
+    restart: unless-stopped
+  yapi-mongo:
+    image: mongo:latest
+    container_name: yapi-mongo
+    volumes:
+      - ./data/db:/data/db
+    expose:
+      - 27017
+    restart: unless-stopped

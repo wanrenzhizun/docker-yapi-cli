@@ -37,13 +37,17 @@ function createConfig() {
         "closeRegister": process.env.CLOSE_REGISTER ?? true,
     };
     const db = {
-        "servername": process.env.DB_SERVERNAME ?? "127.0.0.1",
-        "DATABASE": process.env.DB_NAME ?? "yapi",
-        "port": JSON.parse(process.env.DB_PORT ?? 27017),
         "user": process.env.DB_USER ?? "",
         "pass": process.env.DB_PASS ?? "",
         "authSource": process.env.DB_AUTH_SOURCE ?? ""
     };
+    if (process.env.DB_SLAVE_URL) {
+        db.connectString = process.env.DB_SLAVE_URL;
+    } else {
+        db.servername = process.env.DB_SERVERNAME ?? "127.0.0.1";
+        db.DATABASE = process.env.DB_NAME ?? "yapi";
+        db.port = JSON.parse(process.env.DB_PORT ?? 27017);
+    }
     const mail = {
         "enable": JSON.parse(process.env.MAIL_ENABLE ?? false),
         "host": process.env.MAIL_HOST ?? "smtp.163.com",
@@ -61,18 +65,18 @@ function createConfig() {
         "bindPassword": process.env.LDAP_BIND_PASSWORD ?? "password123",
         "searchDn": process.env.LDAP_SEARCH_DN ?? "OU=UserContainer,DC=test,DC=com",
         "searchStandard": process.env.LDAP_SEARCH_STANDARD ?? "mail",    // 自定义格式： "searchStandard": "&(objectClass=user)(cn=%s)"
-        "emailPostfix": process.env.LDAP_EMAILPOSTFIX ?? "",
-        "emailKey": process.env.LDAP_EMAILKEY ?? "mail",
-        "usernameKey": process.env.LDAP_USERNAMEKEY ?? "name"
+        "emailPostfix": process.env.LDAP_EMAIL_POSTFIX ?? "",
+        "emailKey": process.env.LDAP_EMAIL_KEY ?? "mail",
+        "usernameKey": process.env.LDAP_USERNAME_KEY ?? "name"
     };
     const plugins = JSON.parse(process.env.YAPI_PLUGINS ?? "[]");
 
     config.db = db;
 
-    if (mail.enable){
+    if (mail.enable) {
         config.mail = mail;
     }
-    if (ldap.enable){
+    if (ldap.enable) {
         config.ldapLogin = ldap;
     }
     config.plugins = plugins
@@ -85,5 +89,6 @@ function createConfig() {
         }
     })
 }
+
 createConfig()
 
