@@ -1,6 +1,7 @@
 const child_process = require('child_process');
 const fs = require('fs');
-let cmd = 'npm i ';
+let cmd = 'yarn add ';
+let registry = " --registry=https://registry.npm.taobao.org"
 
 const plugins = JSON.parse(process.env.YAPI_PLUGINS ?? "[]");
 
@@ -11,7 +12,7 @@ const packages = plugins
             !fs.existsSync(`/yapi/vendors/node_modules/${packageName}`),
     )??[]
 if (packages.length > 0){
-    child_process.exec(cmd + packages.join(" "), (error, stdout, stderr) => {
+    child_process.exec(cmd + packages.join(" ") + registry, (error, stdout, stderr) => {
         if (!error) {
             console.log(`${stdout}`);
             console.log(`${stderr}`);
