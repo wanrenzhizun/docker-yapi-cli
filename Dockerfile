@@ -5,7 +5,7 @@ RUN echo 'https://mirrors.aliyun.com/alpine/v3.16/main/' > /etc/apk/repositories
     && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime  \
     && echo "Asia/Shanghai" > /etc/timezone  \
     && apk del tzdata  \
-    && rm -rf /var/cache/apk/* \
+    && rm -rf /var/cache/apk/*
 
 RUN mkdir -p /yapi/vendors
 
