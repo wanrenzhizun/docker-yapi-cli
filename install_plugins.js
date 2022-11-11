@@ -1,7 +1,8 @@
-const child_process = require('child_process');
+const { spawn } = require('child_process');
 const fs = require('fs');
-let cmd = 'yarn add ';
-let registry = " --registry=https://registry.npm.taobao.org"
+let cmd = 'npm';
+let args = ['install','--production','--legacy-peer-deps']
+let registry = ["--registry=https://registry.npm.taobao.org"]
 
 const plugins = JSON.parse(process.env.YAPI_PLUGINS ?? "[]");
 
@@ -12,16 +13,21 @@ const packages = plugins
             !fs.existsSync(`/yapi/vendors/node_modules/${packageName}`),
     )??[]
 if (packages.length > 0){
-    child_process.exec(cmd + packages.join(" ") + registry, (error, stdout, stderr) => {
-        if (!error) {
-            console.log(`${stdout}`);
-            console.log(`${stderr}`);
-        } else {
-            console.log(`${error}`);
-        }
+    let params = [...args,...packages,...registry]
+    const task = spawn(cmd, params);
+    task.stdout.on('data', (data) => {
+        console.log(`${data}`);
+    });
+
+    task.stderr.on('data', (data) => {
+        console.log(`${data}`);
+    });
+
+    task.on('close', (code) => {
+        console.log(`子进程退出码：${code}`);
     });
 }
-if (fs.existsSync(`/yapi/vendors/init.lock`)){
+if (fs.existsSync(`/yapi/init.lock`)){
     console.log("尝试启动Yapi")
     require('/yapi/vendors/server/app.js');
 }else {
