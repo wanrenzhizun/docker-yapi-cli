@@ -83,7 +83,6 @@ function createConfig() {
         if (err) {
             console.error(err);
         }
-        console.log('--------------------修改成功');
     })
 }
 createConfig()
