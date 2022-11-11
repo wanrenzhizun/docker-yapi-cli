@@ -13,6 +13,7 @@ WORKDIR /yapi/vendors
 
 COPY vendors/ /yapi/vendors/
 COPY handle.js /yapi/vendors/
+COPY install_plugins.js /yapi/vendors/
 COPY start.sh /yapi/vendors/
 
 RUN npm config set registry https://registry.npm.taobao.org
