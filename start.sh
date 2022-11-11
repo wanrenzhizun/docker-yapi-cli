@@ -10,4 +10,5 @@ else
     echo "启动安装程序。。。"
     node handle.js
     npm run install-server
+    touch init.lock
 fi
