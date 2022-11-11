@@ -32,6 +32,7 @@ function createConfig() {
     let config = {
         "port": 3000,
         "adminAccount": process.env.ADMIN_ACCOUNT ?? "admin@admin.com",
+        "adminPassword": process.env.ADMIN_PASSWORD ?? "admin123",
         "timeout": 120000,
         "closeRegister": process.env.CLOSE_REGISTER ?? true,
     };
