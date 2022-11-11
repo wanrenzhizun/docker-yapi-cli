@@ -1,4 +1,4 @@
-FROM node:14.21.1-alpine3.16
+FROM node:16.18.1-alpine3.16
 RUN echo 'https://mirrors.aliyun.com/alpine/v3.16/main/' > /etc/apk/repositories  \
     && echo 'https://mirrors.aliyun.com/alpine/v3.16/community/' >>/etc/apk/repositories  \
     && apk --update add tzdata ttf-dejavu fontconfig  \
