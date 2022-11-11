@@ -1,4 +1,4 @@
-FROM node:16.18.1-alpine3.12
+FROM node:16-alpine3.12
 RUN echo 'https://mirrors.aliyun.com/alpine/v3.12/main/' > /etc/apk/repositories  \
     && echo 'https://mirrors.aliyun.com/alpine/v3.12/community/' >>/etc/apk/repositories  \
     && apk --update add tzdata ttf-dejavu fontconfig python2 \
