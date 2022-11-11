@@ -1,16 +1,13 @@
 # docker-YApi
 
-在 [Docker](https://www.docker.com/) 中运行 [YApi](https://github.com/YMFE/yapi)。
+在 [Docker](https://www.docker.com/) 中运行 [YApi](https://github.com/wanrenzhizun/docker-yapi-cli)。
 
 ---
 
-演示地址： [https://docker-yapi.herokuapp.com/](https://docker-yapi.herokuapp.com/)
 
-管理员账号：`admin@docker.yapi`
+管理员账号：`admin@admin.com`
 
-管理员密码：`adm1n`
-
-仅供测试，服务每次部署都会重置，请不要将重要数据放在上面。
+管理员密码：`admin123`
 
 ---
 
@@ -26,12 +23,9 @@
         - [邮件配置](#邮件配置)
         - [LDAP 登录配置](#ldap-登录配置)
         - [插件配置](#插件配置)
-- [内置插件](#内置插件)
 - [如何重启](#如何重启)
 - [如何升级](#如何升级)
 - [查看日志](#查看日志)
-- [如何迁移](#如何迁移)
-- [play 版说明](#play-版说明)
 - [YApi 相关资源推荐](#yapi-相关资源推荐)
 - [许可](#许可)
 
@@ -46,32 +40,17 @@
 首先，克隆本项目：
 
 ```bash
-git clone https://github.com/fjc0k/docker-YApi.git
+git clone https://github.com/wanrenzhizun/docker-yapi-cli.git
 
-# 无法访问 github 的可使用国内镜像：
-git clone https://gitee.com/fjc0k/docker-YApi.git
 ```
 
-接下来，修改 `docker-compose.yml` 中 `yapi-web` 下的环境变量 `YAPI_ADMIN_ACCOUNT` 为你的管理员邮箱，`YAPI_ADMIN_PASSWORD` 为你的管理员密码。
+接下来，修改 `docker-compose.yml` 中 `yapi-web` 下的环境变量 `ADMIN_ACCOUNT` 为你的管理员邮箱，`ADMIN_PASSWORD` 为你的管理员密码。
 
 最后，执行 `docker-compose up -d` 启动服务。
 
 然后，通过 `http://localhost:40001` 即可访问 `YApi`。
 
 ## 如何配置
-
-为了减少二次配置，`docker-YApi` 新增了 `adminPassword` 选项以设置管理员密码。
-
-### 通过 config.json 或者 config.js 配置（不推荐）
-
-`config.json` 是 YApi 官方支持的配置文件，`config.js` 是 `docker-YApi` 扩展支持的配置文件，其实就是将 JSON 数据写成了更简洁的 JavaScript 对象。
-
-你可通过将外部的 `config.json` 或 `config.js` 配置文件映射进容器内部来使用它们：
-
-```bash
-./config.json:/yapi/config.json
-./config.js:/yapi/config.js
-```
 
 ### 通过环境变量配置（推荐）
 
@@ -82,7 +61,6 @@ git clone https://gitee.com/fjc0k/docker-YApi.git
 | 环境变量名称        | 类型    | 说明                                                                                         | 示例                            |
 |---------------------|---------|--------------------------------------------------------------------------------------------|---------------------------------|
 | ADMIN_ACCOUNT  | string  | 管理员账号（邮箱）                                                                             | admin@foo.bar                   |
-| ADMIN_PASSWORD | string  | 管理员密码                                                                                   | adm1n                           |
 | CLOSE_REGISTER | boolean | 是否关闭注册，由于 docker-YApi 已[内置相关插件](#内置插件)，你可在关闭注册后在后台手动添加用户 | true                            |
 
 #### 数据库配置
@@ -129,12 +107,6 @@ git clone https://gitee.com/fjc0k/docker-YApi.git
 | 环境变量名称 | 类型 | 说明                                                                                                                                                                                                                                                                                                                                                                                                                  | 示例                             |
 |--------------|------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------|
 | YAPI_PLUGINS | json | 要使用的插件列表。[点击查看开源 YApi 插件列表 →](https://www.npmjs.com/search?q=yapi-plugin-)<br /><br />**配置项数据格式：**<br />{<br /> "name": "插件名称，必须去除前缀 yapi-plugin-",<br /> "options": "插件配置，没有配置则不必设置"<br />}<br /><br />**注意：**<br />安装插件会运行 YApi 自带的打包命令，其内存消耗较大，因此，在安装插件时，物理机可用内存最好大于等于 `4GB`，否则，易出现内存溢出错误，导致插件安装失败。 | [{"name":"gitlab","options":{}}] |
-
-## 内置插件
-
-为 YApi 安装插件是一件异常缓慢且易因服务器配置不够而出错的事情，因此 docker-YApi 内置了以下插件，希望能减少点不必要的麻烦：
-
-- [yapi-plugin-add-user](https://github.com/congqiu/yapi-plugin-add-user): 支持管理员直接通过邮箱添加用户。 <作者: [@congqiu](https://github.com/congqiu)>
 
 
 ## 如何重启
