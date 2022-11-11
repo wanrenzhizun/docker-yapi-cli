@@ -37,17 +37,17 @@ function createConfig() {
         "closeRegister": process.env.CLOSE_REGISTER ?? true,
     };
     const db = {
-        "servername": process.env.SERVERNAME ?? "127.0.0.1",
+        "servername": process.env.DB_SERVERNAME ?? "127.0.0.1",
         "DATABASE": process.env.DB_NAME ?? "yapi",
-        "port": process.env.DB_PORT ?? 27017,
-        "user": process.env.DB_USER ?? "test1",
-        "pass": process.env.DB_PASS ?? "test1",
+        "port": JSON.parse(process.env.DB_PORT ?? 27017),
+        "user": process.env.DB_USER ?? "",
+        "pass": process.env.DB_PASS ?? "",
         "authSource": process.env.DB_AUTH_SOURCE ?? ""
     };
     const mail = {
-        "enable": process.env.MAIL_ENABLE ?? false,
+        "enable": JSON.parse(process.env.MAIL_ENABLE ?? false),
         "host": process.env.MAIL_HOST ?? "smtp.163.com",
-        "port": process.env.MAIL_PORT ?? 465,
+        "port": JSON.parse(process.env.MAIL_PORT ?? 465),
         "from": process.env.MAIL_FORM ?? "",
         "auth": {
             "user": process.env.MAIL_USER ?? "",
@@ -55,7 +55,7 @@ function createConfig() {
         }
     };
     const ldap = {
-        "enable": process.env.LDAP_ENABLE ?? false,
+        "enable": JSON.parse(process.env.LDAP_ENABLE ?? false),
         "server": process.env.LDAP_SERVER ?? "",
         "baseDn": process.env.LDAP_BASE_DN ?? "CN=Admin,CN=Users,DC=test,DC=com",
         "bindPassword": process.env.LDAP_BIND_PASSWORD ?? "password123",
@@ -79,7 +79,7 @@ function createConfig() {
 
     let str = prettyFormat(JSON.stringify(config))
 
-    fs.writeFile('./config.json', str, function (err) {
+    fs.writeFile('../config.json', str, function (err) {
         if (err) {
             console.error(err);
         }
