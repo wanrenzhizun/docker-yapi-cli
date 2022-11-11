@@ -7,7 +7,7 @@
 
 管理员账号：`admin@admin.com`
 
-管理员密码：`admin123`
+管理员密码：`ymfe.org`
 
 ---
 
@@ -44,7 +44,7 @@ git clone https://github.com/wanrenzhizun/docker-yapi-cli.git
 
 ```
 
-接下来，修改 `docker-compose.yml` 中 `yapi-web` 下的环境变量 `ADMIN_ACCOUNT` 为你的管理员邮箱，`ADMIN_PASSWORD` 为你的管理员密码。
+接下来，修改 `docker-compose.yml` 中 `yapi-web` 下的环境变量 `ADMIN_ACCOUNT` 为你的管理员邮箱,默认密码`ymfe.org`。
 
 最后，执行 `docker-compose up -d` 启动服务。
 
