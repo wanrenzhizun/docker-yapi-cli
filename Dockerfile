@@ -23,7 +23,7 @@ RUN rm -rf package-lock.json
 # 安装依赖
 RUN npm install --registry https://registry.npm.taobao.org
 
-ENTRYPOINT ["sh","start.sh"]
+ENTRYPOINT ["node","start.js"]
 
 
 
