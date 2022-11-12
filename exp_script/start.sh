@@ -4,7 +4,7 @@ set -ex
 if [ ! -e /yapi/init.lock ]; then
     echo "启动安装程序..."
     node /yapi/vendors/handle.js
-    npm run install-server || echo "初始化数据库失败，请确认。。。"
+    npm run install-server || (echo "初始化数据库失败，请确认。。。" && touch /yapi/init.lock)
 fi
 
 echo "安装插件..."
