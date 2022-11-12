@@ -15,7 +15,7 @@ services:
       - DB_NAME=yapi
       - MAIL_ENABLE=false
       - LDAP_ENABLE=false
-      - YAPI_PLUGINS=[]
+      - YAPI_PLUGINS=[{"name":"add-user","options":{}}]
     depends_on:
       - yapi-mongo
     links:

@@ -117,7 +117,7 @@ git clone https://github.com/wanrenzhizun/docker-yapi-cli.git
 docker-compose restart yapi-web
 ```
 
-## 如何升级
+## 如何升级 `最新1.12.0版本可能对一些插件兼容不好，目前测试的yapi-plugin-gitea-auth2有问题，如果要使用，请使用1.11.0`
 
 若 `YApi` 有更新，本项目应会尽快跟进，之后，你可使用以下命令升级：
 
