@@ -1,7 +1,7 @@
 FROM node:16-alpine3.12
-RUN echo 'https://mirrors.aliyun.com/alpine/v3.6/main/' > /etc/apk/repositories  \
-    && echo 'https://mirrors.aliyun.com/alpine/v3.6/community/' >>/etc/apk/repositories  \
-    && apk --update add tzdata ttf-dejavu fontconfig python2 make g++ \
+RUN echo 'https://mirrors.aliyun.com/alpine/v3.12/main/' > /etc/apk/repositories  \
+    && echo 'https://mirrors.aliyun.com/alpine/v3.12/community/' >>/etc/apk/repositories  \
+    && apk --update add tzdata ttf-dejavu fontconfig \
     && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime  \
     && echo "Asia/Shanghai" > /etc/timezone  \
     && apk del tzdata  \
