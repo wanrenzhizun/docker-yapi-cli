@@ -33,7 +33,8 @@ function createConfig() {
         "port": 3000,
         "adminAccount": process.env.ADMIN_ACCOUNT ?? "admin@admin.com",
         "timeout": 120000,
-        "closeRegister": process.env.CLOSE_REGISTER ?? true,
+        "versionNotify": JSON.parse(process.env.VERSION_NOTIFY ?? true),
+        "closeRegister": JSON.parse(process.env.CLOSE_REGISTER ?? true),
     };
     const db = {
         "user": process.env.DB_USER ?? "",
