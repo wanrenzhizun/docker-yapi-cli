@@ -45,6 +45,26 @@ function installPlugins() {
     }
 }
 
+function otherHandle() {
+    const ignoreArr = JSON.parse(process.env.IGNORE_PATH ?? "[]");
+    if (ignoreArr.length > 0) {
+        ignoreArr.push('/api/user/login_by_ldap')
+        let replacement = "'" + ignoreArr.join("',\n'") + "'"
+        let handleFile = "/yapi/vendors/server/controllers/base.js"
+        fs.readFile(handleFile, 'utf8', function (err, data) {
+            if (err) {
+                return console.log(err);
+            }
+            let result = data.replace("'/api/user/login_by_ldap'", replacement);
+
+            fs.writeFile(handleFile, result, 'utf8', function (err) {
+                if (err) return console.log(err);
+            });
+        });
+    }
+
+}
+
 function initDb() {
     return new Promise(resolve => {
         let ts = exec("npm", ["run", "install-server"])
@@ -73,6 +93,7 @@ async function start() {
 
     console.log("安装插件")
     installPlugins()
+    otherHandle()
 
     console.log("启动应用")
     require('/yapi/vendors/server/app.js');
